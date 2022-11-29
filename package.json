@@ -1,0 +1,1 @@
+{"name":"Robb_Bot","version":"1.0.0","description":"Robb","main":"bot.js","author":"Josh","dependencies":{"@discordjs/opus":"^0.8.0","@discordjs/voice":"^0.13.0","discord-reply":"^0.1.2","discord.io":"https://github.com/woor/discord.io/tarball/gateway_v6","discord.js":"^14.6.0","ffmpeg":"^0.0.4","winston":"^3.8.2"}}
