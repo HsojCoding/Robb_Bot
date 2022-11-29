@@ -20,13 +20,13 @@ const commands = [
   }
 ];
 
-const rest = new REST({ version: '10' }).setToken("MTA0NjU1NjYxNDEzNzc1MzY3MA.GXeBPd.VO0UcI4zIJEBuLkjDDETdc_JtSV1VaF2PFejlA");
+const rest = new REST({ version: '10' }).setToken("BOT_TOKEN");
 
 (async () => {
   try {
     console.log('Started refreshing application (/) commands.');
 
-    await rest.put(Routes.applicationCommands("1046556614137753670"), { body: commands });
+    await rest.put(Routes.applicationCommands("CLIENT_ID"), { body: commands });
 
     console.log('Successfully reloaded application (/) commands.');
   } catch (error) {
@@ -39,7 +39,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    client.channels.cache.get("1019010413175779488").send("Logged in!");
+    client.channels.cache.get("CLIENT_ID").send("Logged in!");
 });
 client.on('interactionCreate', async interaction => {
 
@@ -83,7 +83,7 @@ client.on('messageCreate', async message => {
 
   if (message.author.bot) return;
 
-  if (message.author.id == "308192035469262848") {
+  if (message.author.id == "USER_ID") {
     const robReply = ["u look mature and breedable", "wanna bang"]
     const robResponse = robReply[Math.floor(Math.random() * robReply.length)]
     await message.reply(robResponse)
@@ -101,11 +101,11 @@ client.on('messageCreate', async message => {
     await message.reply(everyone_Reply);
   }
 
-  if (message.content.toLowerCase().includes("<@1046556614137753670>")){
+  if (message.content.toLowerCase().includes("CLIENT_ID")){
     await message.reply("im makin piss")
   }
-  if (message.author.id == "1046926888372818070") {
+  if (message.author.id == "ID") {
     await message.reply("sus")
   }
 })
-client.login("MTA0NjU1NjYxNDEzNzc1MzY3MA.GXeBPd.VO0UcI4zIJEBuLkjDDETdc_JtSV1VaF2PFejlA");
+client.login("BOT_TOKEN");
