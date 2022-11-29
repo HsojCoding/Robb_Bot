@@ -17,16 +17,20 @@ const commands = [
   {
     name: 'id',
     description: 'Your current ids'
+  },
+  {
+  name: 'leave',
+  description: 'Leaves the current channel'
   }
 ];
 
-const rest = new REST({ version: '10' }).setToken("BOT_TOKEN");
+const rest = new REST({ version: '10' }).setToken("TOKEN");
 
 (async () => {
   try {
     console.log('Started refreshing application (/) commands.');
 
-    await rest.put(Routes.applicationCommands("CLIENT_ID"), { body: commands });
+    await rest.put(Routes.applicationCommands("1046556614137753670"), { body: commands });
 
     console.log('Successfully reloaded application (/) commands.');
   } catch (error) {
@@ -39,9 +43,14 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    client.channels.cache.get("CLIENT_ID").send("Logged in!");
 });
 client.on('interactionCreate', async interaction => {
+
+  const user_id = interaction.member.id
+  const user_text_channel_id = interaction.member.channelId
+  const user_voice_channel_id = interaction.member.voice.channelId
+  const user_text_guild_id = interaction.member.guild.id
+  const user_voice_guild_id = interaction.member.voice.guild.id
 
   if (!interaction.isChatInputCommand()) return;
 
@@ -53,17 +62,14 @@ client.on('interactionCreate', async interaction => {
   }
   if (interaction.commandName === 'join') {
     const connection = joinVoiceChannel({
-      channelId: interaction.member.voice.channelId,
-      guildId: interaction.member.voice.guild.id,
+      channelId: user_voice_channel_id,
+      guildId: user_voice_guild_id,
       adapterCreator: interaction.member.voice.guild.voiceAdapterCreator,
     });
     await connection
     await interaction.reply('Joined')
   }
   if (interaction.commandName === 'id') {
-    const user_id = interaction.member.id
-    const user_channel_id = interaction.member.voice.channelId
-    const user_guild_id = interaction.member.voice.guild.id
     console.log(user_id)
     console.log(user_channel_id)
     console.log(user_guild_id)
@@ -82,8 +88,7 @@ client.on('messageCreate', async message => {
   console.log(message.content);
 
   if (message.author.bot) return;
-
-  if (message.author.id == "USER_ID") {
+  if (message.author.id == "308192035469262848") {
     const robReply = ["u look mature and breedable", "wanna bang"]
     const robResponse = robReply[Math.floor(Math.random() * robReply.length)]
     await message.reply(robResponse)
@@ -104,8 +109,8 @@ client.on('messageCreate', async message => {
   if (message.content.toLowerCase().includes("CLIENT_ID")){
     await message.reply("im makin piss")
   }
-  if (message.author.id == "ID") {
+  if (message.author.id == "1046926888372818070") {
     await message.reply("sus")
   }
 })
-client.login("BOT_TOKEN");
+client.login('TOKEN');
